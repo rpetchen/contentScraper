@@ -1,45 +1,45 @@
 const scrapeIt = require("scrape-it");
+const config = require("./config.js")
+
+var save = require("./files.js")
 
 
-var firstData = {
-
-    data: {
-        listItem: ".products > li",
-        data: {
-            url: {
-                selector: "a",
-                attr: "href"
-            }
-        }
-
-    }
-}
-
-var secondData = {
-            Title: {
-                selector: '.shirt-picture img',
-                attr: 'alt'
-            },
-            Price: {
-                selector: '.price',
-                how: 'html'
-            },
-            ImageURL: {
-                selector: '.shirt-picture img',
-                attr: 'src'
-            }
-        }
-
-scrapeIt("http://www.shirts4mike.com/shirts.php", firstData).then(page => {
+scrapeIt("http://www.shirts4mike.com/shirts.php", config.firstData) .then(page => {
+ 
+	
 	var shirts = page.data
 	var shirtA = []
 
-	for (i = 0; i < shirts.length; i++){
-	scrapeIt(`http://www.shirts4mike.com/${shirts[i].url}`, secondData).then(page =>{
-		console.log(page)
-	}) 
+	for (var i = 0; i < shirts.length; i++){
+	scrapeIt(`http://www.shirts4mike.com/${shirts[i].url}`, config.secondData, (err,page) =>{
+    	shirtA.push(page)
+    	save.saveFile(shirtA)
+    })	
+
+    	
+		
 	}
-}).catch ((e) => {
-	if (e.code === 'ENOENT'){
-	console.log('Internet Connect unavailable')}
-});
+
+		
+	})
+
+
+// }).catch ((e) => {
+// 	if (e.code === 'ENOENT'){
+// 	console.log('Internet Connect unavailable')}
+// });
+
+
+
+// var fields = ['Title', 'price', 'ImageURL'];
+
+// var csv = json2csv({ data: page, fields: fields });
+
+// var fields = ['Title', 'price', 'ImageURL'];
+
+// var csv = json2csv({ data: page, fields: fields });
+ 
+// fs.writeFile('file.csv', csv, function(err) {
+//   if (err) throw err;
+//   console.log('file saved');
+// });
