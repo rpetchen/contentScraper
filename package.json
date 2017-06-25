@@ -4,16 +4,13 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node scraper.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mkdirp": "^0.5.1",
-    "osmosis": "^1.1.4",
-    "page-scraper": "^1.0.1",
-    "safe-json-stringify": "^1.0.4",
-    "scrape-it": "^3.3.2",
-    "scraperjs": "^1.2.0"
+    "json2csv": "^3.7.3",
+    "scrape-it": "^3.3.2"
   }
 }
